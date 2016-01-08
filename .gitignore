@@ -1,5 +1,6 @@
 *.class
-
+*.sublime-project
+*.sublime-workspace
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
