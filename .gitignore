@@ -2,8 +2,10 @@
 *.sublime-project
 *.sublime-workspace
 
-#repertoire data
+#repertoire
 data/*
+.metadata/*
+RemoteSystemsTempFiles/*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
