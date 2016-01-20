@@ -2,6 +2,10 @@
 
 /* Initial beliefs and rules */
 
+voisin(2, 80).
+voisin(3, 280).
+
+
 /* Initial goals */
 
 !start.

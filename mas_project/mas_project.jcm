@@ -9,6 +9,7 @@
 */
 
 mas mas_project {
+	agent a2
 
     agent sample_agent
     
@@ -118,4 +119,3 @@ mas mas_project {
        nodes not defined will be launched when this .jcm is run
     */
 }
-
