@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mas.entite.Agent;
 import com.mas.parser.Lecteur;
+import com.mas.tools.DfsTree;
 
 public class Main {
 
@@ -14,8 +15,10 @@ public class Main {
 
 			Lecteur.lectureContaintes(antennes);
 			
+			//
+			new DfsTree(antennes);
 			affichageListes(domaines,antennes);
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -24,11 +27,11 @@ public class Main {
 
 	public static void affichageListes(List<String[]> domaines, List<Agent> antennes) {
 		int i;
-		String[] tmpDom;
+		//String[] tmpDom;
 		Agent tmpAnt;
 		int taille = domaines.size();
 
-		System.out.println("Domaines:");
+		/*System.out.println("Domaines:");
 		for (i = 0; i < taille; i++) {
 			tmpDom = domaines.get(i);
 			System.out.print("\t-"+i+": ");
@@ -38,7 +41,7 @@ public class Main {
 			}
 			
 			System.out.print("\n");
-		}
+		}*/
 		
 		System.out.println();
 		System.out.println("Agents:");
@@ -46,7 +49,8 @@ public class Main {
 
 		for (i = 0; i < taille; i++) {
 			tmpAnt = antennes.get(i);
-			System.out.println("\t-"+i+": " + tmpAnt.toString());
+			System.out.println("-"+i+": " + tmpAnt.toStringArbre());
+			System.out.println("\t\t" + tmpAnt.toStringAvecContraintes());
 		}
 	}
 }

@@ -29,9 +29,11 @@ public class Lecteur {
 			while ((ligne = lecteur.readLine()) != null) {
 				champs = ligne.trim().split("\\s+");
 				
-				idDom = Integer.parseInt(champs[0]);
-				
-				domaines.add(idDom, Arrays.copyOfRange(champs, 1, champs.length));
+				if(champs.length >= 2) {
+					idDom = Integer.parseInt(champs[0]);
+					
+					domaines.add(idDom, Arrays.copyOfRange(champs, 1, champs.length));
+				}
 			}
 
 			lecteur.close();
@@ -55,9 +57,12 @@ public class Lecteur {
 
 			while ((ligne = lecteur.readLine()) != null) {
 				champs = ligne.trim().split("\\s+");
-				id = Integer.parseInt(champs[0]);
-
-				antennes.add(new Agent(id, Integer.parseInt(champs[1])));
+				
+				if(champs.length == 2) {
+					id = Integer.parseInt(champs[0]);
+	
+					antennes.add(new Agent(id, Integer.parseInt(champs[1])-1));
+				}
 			}
 
 			lecteur.close();
@@ -83,19 +88,22 @@ public class Lecteur {
 
 			while ((ligne = lecteur.readLine()) != null) {
 				champs = ligne.trim().split("\\s+");
-				id1 = Integer.parseInt(champs[0]);
-				id2 = Integer.parseInt(champs[1]);
-				
-				ant1 = antennes.get(id1-1);
-				ant2 = antennes.get(id2-1);
-				
-				cont = new Contrainte(champs[3], champs[4]);
-				
-				ant1.ajoutContrainte(id2, cont);
-				ant2.ajoutContrainte(id1, cont);
-				
-				antennes.set(id1-1, ant1);
-				antennes.set(id2-1, ant2);
+
+				if(champs.length == 5) {
+					id1 = Integer.parseInt(champs[0]);
+					id2 = Integer.parseInt(champs[1]);
+					
+					ant1 = antennes.get(id1-1);
+					ant2 = antennes.get(id2-1);
+					
+					cont = new Contrainte(champs[3], champs[4]);
+					
+					ant1.ajoutContrainte(id2, cont);
+					ant2.ajoutContrainte(id1, cont);
+					
+					antennes.set(id1-1, ant1);
+					antennes.set(id2-1, ant2);
+				}
 			}
 
 			lecteur.close();

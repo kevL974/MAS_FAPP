@@ -16,6 +16,8 @@ public class Agent {
 	private List<Integer> fils;
 	private List<Integer> pseudoFils;
 	
+	private List<Integer> voisinsVisites;
+	
 	public Agent(int id, int idDom) {
 		super();
 		this.id = id;
@@ -27,6 +29,8 @@ public class Agent {
 		this.pseudoParents = new ArrayList<Integer>();
 		this.fils = new ArrayList<Integer>();
 		this.pseudoFils = new ArrayList<Integer>();
+		
+		this.voisinsVisites = new ArrayList<Integer>();
 	}
 	
 	
@@ -80,8 +84,16 @@ public class Agent {
 		this.pseudoFils = pseudoFils;
 	}
 	
-	
-	
+	public List<Integer> getVoisinsVisites() {
+		return voisinsVisites;
+	}
+
+
+	public void setVoisinsVisites(List<Integer> voisinsVisites) {
+		this.voisinsVisites = voisinsVisites;
+	}
+
+
 	public void ajoutContrainte(int idAgent, Contrainte contrainte){
 		this.contraintes.put(idAgent, contrainte);
 	}
@@ -96,6 +108,26 @@ public class Agent {
 	
 	public void ajoutPseudoFils(int idAgent) {
 		this.pseudoFils.add(idAgent);
+	}
+	
+	public void ajoutVoisinVisite(int idAgent) {
+		this.voisinsVisites.add(idAgent);
+	}
+	
+	public boolean contientPseudoParent(int idAgent) {
+		return this.pseudoParents.contains(idAgent);
+	}
+	
+	public boolean contientFils(int idAgent) {
+		return this.fils.contains(idAgent);
+	}
+	
+	public boolean contientPseudoFils(int idAgent) {
+		return this.pseudoFils.contains(idAgent);
+	}
+	
+	public boolean contientVoisinVisite(int idAgent) {
+		return this.voisinsVisites.contains(idAgent);
 	}
 
 
@@ -116,6 +148,47 @@ public class Agent {
 			affichage.append(contraintes.get(i));
 			affichage.append("] ");
 		}
+		
+		return affichage.toString();
+	}
+	
+	public String toStringArbre() {
+		StringBuilder affichage = new StringBuilder(toString());
+		affichage.append("\n");
+		
+		affichage.append("\tParent: \n\t\t");
+		affichage.append(this.parent);
+		affichage.append("\n");
+		
+		
+		affichage.append("\tPseudoParents: \n\t\t");
+		
+		for(Integer i : this.pseudoParents) {
+			affichage.append("[");
+			affichage.append(i);
+			affichage.append("] ");
+		}
+		affichage.append("\n");
+		
+		
+		affichage.append("\tEnfants: \n\t\t");
+		
+		for(Integer i : this.fils) {
+			affichage.append("[");
+			affichage.append(i);
+			affichage.append("] ");
+		}
+		affichage.append("\n");
+		
+		
+		affichage.append("\tPseudoEnfants: \n\t\t");
+		
+		for(Integer i : this.pseudoFils) {
+			affichage.append("[");
+			affichage.append(i);
+			affichage.append("] ");
+		}
+		affichage.append("\n");
 		
 		return affichage.toString();
 	}
