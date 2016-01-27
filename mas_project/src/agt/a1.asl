@@ -1,18 +1,18 @@
 // Agent sample_agent in project mas_project
 
 /* Initial beliefs and rules */
-
-voisin(2, 80).
-voisin(3, 280).
-
+racine.
+pseudofils("4").
+contraint("2",">",8).
+domain([8,20]).
 
 /* Initial goals */
 
-!start.
+!dpop.
 
 /* Plans */
 
-+!start : true <- .print("hello world.").
++!dpop : fils(X) <- .send(X, tell, doUtilPhase).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

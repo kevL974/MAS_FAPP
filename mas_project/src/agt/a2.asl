@@ -2,15 +2,25 @@
 
 /* Initial beliefs and rules */
 
-voisin(1, 80).
+
+validFreq(domain([T|Q])) :- T . 
 
 /* Initial goals */
 
-!start.
+!getFrequence.
 
 /* Plans */
 
-+!start : true <- .print("hello world.").
++!getFrequence : 	doUtilPhase & leaf <- .print("reçu doUtilephase").
++!getFrequence : 	doUtilPhase & fils(X) <- .send(X, tell, doUtilPhase);
+					-doUtilPhase. 
++!getFrequence : 	true <- .wait(7);
+					!getFrequence.
+
+
+//+!utilPhase(Constraint) : constraint()
+
+//+!consMatCout(domain)
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
