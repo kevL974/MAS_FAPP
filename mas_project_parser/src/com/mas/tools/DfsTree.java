@@ -56,44 +56,41 @@ public class DfsTree {
 			parent(X).
 	 */
 	private void passageToken(Integer idAgent, Agent source) {
-		System.out.println(idAgent + " reçoit de " + source);
 		Agent noeud = antennes.get(idAgent-1);
 		Set<Integer> voisins = noeud.getContraintes().keySet();
-		for(Integer v : this.visites) {
-			System.out.println("\t v: " + v);
-			
-		}
 		
-		System.out.println("nbV = " + voisins.size());
 		if(source.getId() != -2) {
-			visites.add(source.getId());
-		
-			if(noeud.getParent() == -1) {
-				noeud.setParent(source.getId());
-			}
-			
-			if(source.getParent() == -1) {
+			if(!visites.contains(source.getId()) 
+					&& !noeud.contientVoisinVisite(source.getId())
+					&& source.getId() != -2
+					&& !source.contientVoisinVisite(noeud.getId())) {
+				source.ajoutPseudoParent(noeud.getId());
 				noeud.ajoutPseudoFils(source.getId());
 			}
-		}
-		
-		for(Integer i : token) {
-			if(i != noeud.getParent() && voisins.contains(i)) {
-				System.out.println(i+" pseudo parent de " + noeud);
-				noeud.ajoutPseudoParent(i);
+			
+			visites.add(source.getId());
+			
+			if(!visites.contains(idAgent)) {
+				if(noeud.getParent() == -1) {
+					noeud.setParent(source.getId());
+				}
 				
-				//noeud.ajoutVoisinVisite(i);
+				for(Integer i : token) {
+					if(i != noeud.getParent() && voisins.contains(i) && !noeud.contientPseudoParent(i)) {
+						noeud.ajoutPseudoParent(i);
+						antennes.get(i-1).ajoutPseudoFils(noeud.getId());
+					}
+				}
 			}
 		}
-		
+			
 		token.add(noeud.getId());
 		
 		for(Integer v : voisins) {
-			System.out.println("v: " + v);
 			if(!visites.contains(v) && v != noeud.getParent()) {
-				System.out.println(idAgent + " parent de  " + v);
 				noeud.ajoutFils(v);
-				
+				noeud.ajoutVoisinVisite(v);
+					
 				passageToken(v, noeud);
 			}
 		}
