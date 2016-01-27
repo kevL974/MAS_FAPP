@@ -3,8 +3,6 @@
 /* Initial beliefs and rules */
 
 
-validFreq(domain([T|Q])) :- T . 
-
 /* Initial goals */
 
 !getFrequence.
@@ -12,14 +10,16 @@ validFreq(domain([T|Q])) :- T .
 /* Plans */
 
 +!getFrequence : 	doUtilPhase & leaf <- .print("reçu doUtilephase").
+
+
 +!getFrequence : 	doUtilPhase & fils(X) <- !sendDoUtilPhase(X);
 					-doUtilPhase.
 +!getFrequence : 	true <- .wait(7);
 					!getFrequence.					
 
-+!sendDoUtilPhase(X) : 	fils(X) & fils(Y) & X \== Y <- .send(X, tell, doUtilPhase);
-						!sendDoUtilPhase(Y).
-+!sendDoUtilPhase(X) : fils(X)<- .send(X, tell, doUtilPhase).
++!sendDoUtilPhaseAll : fils(L) <- !sendDoUtilPhase(L).
++!sendDoUtilPhase([T|Q]) : true <- .send(T,tell, doUtilPhase); !sendDoUtilPhase(Q).
++!sendDoUtilPhase([]) : true.
 
 
 { include("$jacamoJar/templates/common-cartago.asl") }
