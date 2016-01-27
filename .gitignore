@@ -19,3 +19,13 @@ RemoteSystemsTempFiles/*
 hs_err_pid*
 
 *.xml
+
+*.class
+*/target/*
+*/.settings/*
+
+*.classpath
+*.MF
+*/build/*
+
+*.log
