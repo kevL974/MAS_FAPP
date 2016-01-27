@@ -21,6 +21,7 @@ mas mas_project {
 		beliefs : pere(a1)
 		beliefs : fils(a3)
 		beliefs : fils(a4)
+		beliefs : fils(a5)
 		beliefs : contraint(a1,">",8)
 		beliefs : contraint(a3,">",8)
 		beliefs : contraint(a4,">",16)
@@ -35,6 +36,14 @@ mas mas_project {
 	}
 	
 	agent a4 : a2.asl {
+		beliefs : pere(a2)
+		beliefs : pseudopere(a1)
+		beliefs : contraint(a2,">",16)
+		beliefs : domain([8,20])
+		beliefs : leaf
+	}
+	
+	agent a5 : a2.asl {
 		beliefs : pere(a2)
 		beliefs : pseudopere(a1)
 		beliefs : contraint(a2,">",16)
