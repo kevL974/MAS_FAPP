@@ -13,6 +13,9 @@ public class Agent {
 	private Integer parent;
 	private List<Integer> pseudoParents;
 	
+	private List<Integer> fils;
+	private List<Integer> pseudoFils;
+	
 	public Agent(int id, int idDom) {
 		super();
 		this.id = id;
@@ -22,6 +25,8 @@ public class Agent {
 		
 		this.parent = -1;
 		this.pseudoParents = new ArrayList<Integer>();
+		this.fils = new ArrayList<Integer>();
+		this.pseudoFils = new ArrayList<Integer>();
 	}
 	
 	
@@ -56,6 +61,27 @@ public class Agent {
 		this.pseudoParents = pseudoParents;
 	}
 	
+	public List<Integer> getFils() {
+		return fils;
+	}
+
+
+	public void setFils(List<Integer> fils) {
+		this.fils = fils;
+	}
+
+
+	public List<Integer> getPseudoFils() {
+		return pseudoFils;
+	}
+
+
+	public void setPseudoFils(List<Integer> pseudoFils) {
+		this.pseudoFils = pseudoFils;
+	}
+	
+	
+	
 	public void ajoutContrainte(int idAgent, Contrainte contrainte){
 		this.contraintes.put(idAgent, contrainte);
 	}
@@ -64,6 +90,15 @@ public class Agent {
 		this.pseudoParents.add(idAgent);
 	}
 	
+	public void ajoutFils(int idAgent) {
+		this.fils.add(idAgent);
+	}
+	
+	public void ajoutPseudoFils(int idAgent) {
+		this.pseudoFils.add(idAgent);
+	}
+
+
 	public String toString() {
 		return "Agent "+id+" (Domaine " + idDom+")";
 	}
