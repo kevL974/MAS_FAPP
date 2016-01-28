@@ -10,10 +10,10 @@ package com.mas.entite;
 public class Contrainte {
 	// Type de contrainte.
 	private String operateur;
-	// Valeur laissée en Sring car non utilisée dans le java
-	private String valeur;
+
+	private int valeur;
 	
-	public Contrainte(String operateur, String valeur) {
+	public Contrainte(String operateur, int valeur) {
 		super();
 		this.operateur = operateur;
 		this.valeur = valeur;
@@ -25,10 +25,10 @@ public class Contrainte {
 	public void setOperateur(String operateur) {
 		this.operateur = operateur;
 	}
-	public String getValeur() {
+	public int getValeur() {
 		return valeur;
 	}
-	public void setValeur(String valeur) {
+	public void setValeur(int valeur) {
 		this.valeur = valeur;
 	}
 	

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mas.tools.Constantes;
+
 public class Agent {
 	private int id;
 	private int idDom;
@@ -191,5 +193,55 @@ public class Agent {
 		affichage.append("\n");
 		
 		return affichage.toString();
+	}
+	
+	public Integer[][] matriceCout(Agent voisin, List<Integer[]> domaines) {
+		if(this.contraintes.containsKey((Integer)voisin.getId())) {
+			Integer[] domAgent = domaines.get(this.idDom);
+			Integer[] domVoisin = domaines.get(voisin.getIdDom());
+			int longMat = domAgent.length*domVoisin.length;
+			int ia;
+			int iv;
+			int i;
+			
+			Contrainte cont = this.contraintes.get((Integer)voisin.getId());
+			
+	
+			Integer[][] matrice = new Integer[3][longMat];
+			
+			for(ia = 0; ia < domAgent.length; ia++) {
+				for(iv = 0; iv < domVoisin.length; iv++) {
+					i = ia*domVoisin.length+iv;
+					matrice[0][i] = domAgent[ia];
+					matrice[0][i] = domVoisin[iv];
+					
+					matrice[0][i] = calculCout(domAgent[ia], domVoisin[iv], cont);
+				}
+			}
+			
+			return matrice;
+		}
+		return null;
+	}
+
+
+	private Integer calculCout(Integer freqAgent, Integer freqVoisin, Contrainte cont) {
+		String op = cont.getOperateur();
+		int val = cont.getValeur();
+		int diff = freqAgent - freqVoisin;
+		
+		if("=".equals(op)) {
+			if(diff == val) {
+				return 0;
+			} else {
+				return Constantes.INFINI;
+			}
+		} else {
+			if(diff > val) {
+				return diff-val-1;
+			} else {
+				return Constantes.INFINI;
+			}
+		}
 	}
 }

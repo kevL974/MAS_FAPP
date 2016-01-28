@@ -12,4 +12,7 @@ public class Constantes {
 	
 	public static final String REPO_ASL = "";
 	public static final String FIC_JCM = "";
+	
+	
+	public static final Integer INFINI = 20000;
 }

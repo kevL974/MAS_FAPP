@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.mas.entite.Agent;
@@ -12,27 +11,32 @@ import com.mas.entite.Contrainte;
 import com.mas.tools.Constantes;
 
 public class Lecteur {
-	public static List<String[]> lectureDomaines() throws Exception {
+	public static List<Integer[]> lectureDomaines() throws Exception {
 		// On laisse les valeurs des domaines en String puisqu'elles ne seront
 		// pas utilisées dans le java.
-		ArrayList<String[]> domaines;
+		List<Integer[]> domaines;
 		BufferedReader lecteur;
 		String ligne;
 		String[] champs;
+		Integer[] tmpDom;
 		int idDom;
 
 		File ficDom = new File(Constantes.FIC_DOM);
 		if (ficDom.isFile()) {
-			domaines = new ArrayList<String[]>();
+			domaines = new ArrayList<Integer[]>();
 			lecteur = new BufferedReader(new FileReader(ficDom));
 
 			while ((ligne = lecteur.readLine()) != null) {
 				champs = ligne.trim().split("\\s+");
+				tmpDom = new Integer[champs.length-1];
 				
 				if(champs.length >= 2) {
 					idDom = Integer.parseInt(champs[0]);
 					
-					domaines.add(idDom, Arrays.copyOfRange(champs, 1, champs.length));
+					for(int i = 0; i < champs.length; i++) {
+						tmpDom[i] = Integer.parseInt(champs[i+1]);
+					}
+					domaines.add(idDom, tmpDom);
 				}
 			}
 
@@ -96,7 +100,7 @@ public class Lecteur {
 					ant1 = antennes.get(id1-1);
 					ant2 = antennes.get(id2-1);
 					
-					cont = new Contrainte(champs[3], champs[4]);
+					cont = new Contrainte(champs[3], Integer.parseInt(champs[4]));
 					
 					ant1.ajoutContrainte(id2, cont);
 					ant2.ajoutContrainte(id1, cont);
