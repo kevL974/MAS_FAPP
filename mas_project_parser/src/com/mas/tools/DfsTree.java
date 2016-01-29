@@ -32,21 +32,11 @@ public class DfsTree {
 		racine.setParent(-2);
 		
 		passageToken(racine.getId(), new Agent(-2,-2));
-		/*racine.setParent(-2);
-		
-		token.add(racine.getId());
-		
-		Set<Integer> voisins = racine.getContraintes().keySet();
-		
-		for(Integer v : voisins) {
-			racine.ajoutFils(v);
-			racine.ajoutVoisinVisite(v);
-			
-			passageToken(v, racine);
-		}*/
 	}
+	
+	
 	/*
-	 * 	1. X owns the token: adds its own ID and sends it in turn to each of its
+	  	1. X owns the token: adds its own ID and sends it in turn to each of its
 			neighbors, which become children
 		2. Y receives the token from X: it marks X as visited. First time Y receives the
 			token then parent(Y) = X. Other IDs in token which are also neighbors(Y)

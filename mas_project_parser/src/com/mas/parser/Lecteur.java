@@ -12,8 +12,6 @@ import com.mas.tools.Constantes;
 
 public class Lecteur {
 	public static List<Integer[]> lectureDomaines() throws Exception {
-		// On laisse les valeurs des domaines en String puisqu'elles ne seront
-		// pas utilisées dans le java.
 		List<Integer[]> domaines;
 		BufferedReader lecteur;
 		String ligne;
@@ -33,8 +31,8 @@ public class Lecteur {
 				if(champs.length >= 2) {
 					idDom = Integer.parseInt(champs[0]);
 					
-					for(int i = 0; i < champs.length; i++) {
-						tmpDom[i] = Integer.parseInt(champs[i+1]);
+					for(int i = 1; i < champs.length; i++) {
+						tmpDom[i-1] = Integer.parseInt(champs[i]);
 					}
 					domaines.add(idDom, tmpDom);
 				}

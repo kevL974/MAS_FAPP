@@ -15,8 +15,7 @@ public class Main {
 
 			Lecteur.lectureContaintes(antennes);
 			
-			//
-			//new DfsTree(antennes);
+			new DfsTree(antennes);
 			affichageListes(domaines,antennes);
 			
 		} catch (Exception e) {
@@ -34,7 +33,7 @@ public class Main {
 		System.out.println("Domaines:");
 		for (i = 0; i < taille; i++) {
 			tmpDom = domaines.get(i);
-			System.out.print("\t-"+i+": ");
+			System.out.print("\tDomaine "+(i+1)+": ");
 			
 			for (Integer s : tmpDom) {
 				System.out.print(s + " ");
@@ -49,8 +48,8 @@ public class Main {
 
 		for (i = 0; i < taille; i++) {
 			tmpAnt = antennes.get(i);
-			//System.out.println("-"+i+": " + tmpAnt.toStringArbre());
-			System.out.println("\t\t" + tmpAnt.toStringAvecContraintes());
+			System.out.println(tmpAnt.toStringArbre());
+			System.out.println("\t" + tmpAnt.toStringAvecContraintes());
 		}
 	}
 }
