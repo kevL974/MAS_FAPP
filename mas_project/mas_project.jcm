@@ -11,60 +11,79 @@
 mas mas_project {
 	
 	agent a1 : a1.asl {
-		beliefs : id("1")
+		beliefs : id(a1)
 		beliefs : racine
 		beliefs : fils([a2])
 		beliefs : pseudofils(a4)
 		beliefs : domain([5,16, 20])
 		
-		focus : region.evaluateur
+		focus : region1.evaluateur
 	}
 	
 	agent a2 : a2.asl {
-		beliefs : id("2")
+		beliefs : id(a2)
 		beliefs : pere(a1)
 		beliefs : fils([a3,a4,a5])
 		beliefs : mat_cout([ [5,5,5,16,16,16,20,20,20], [5,16,20,5,16,20,5,16,20], [10,0,5,0,10,10,5,10,10]])
 		beliefs : domain([5,16, 20])
 		beliefs : domainPere([5,16, 20])
 		
-		focus : region.evaluateur
+		focus : region2.evaluateur
 	}
 	
 	agent a3 : a2.asl {
-		beliefs : id("3")
+		beliefs : leaf
+		beliefs : id(a3)
 		beliefs : pere(a2)
 		beliefs : mat_cout([ [5,5,5,16,16,16,20,20,20], [5,16,20,5,16,20,5,16,20], [10,0,5,0,10,10,5,10,10]])
 		beliefs : domain([5,16, 20])
 		beliefs : domainPere([5,16, 20])
 		
-		focus : region.evaluateur
+		focus : region3.evaluateur
 	}
 	
 	agent a4 : a2.asl {
-		beliefs : id("4")
+		beliefs : leaf
+		beliefs : id(a4)
 		beliefs : pere(a2)
 		beliefs : pseudopere(a1)
 		beliefs : mat_cout([ [5,5,5,16,16,16,20,20,20], [5,16,20,5,16,20,5,16,20], [10,10,0,10,10,10,0,10,10] ])
 		beliefs : domain([5,16, 20])
 		beliefs : domainPere([5,16, 20])
 		
-		focus : region.evaluateur
+		focus : region4.evaluateur
 	}
 	
 	agent a5 : a2.asl {
-		beliefs : id("5")
+		beliefs : leaf
+		beliefs : id(a5)
 		beliefs : pere(a2)
 		beliefs : pseudopere(a1)
 		beliefs : mat_cout([ [5,5,5,16,16,16,20,20,20], [5,16,20,5,16,20,5,16,20], [10,0,5,0,10,10,5,10,10]])
 		beliefs : domain([5,16, 20])
 		beliefs : domainPere([5,16, 20])
 		
-		focus : region.evaluateur
+		focus : region5.evaluateur
 	}
 	
-	workspace region {
-		artifact evaluateur : action.Matrice()
+	workspace region1 {
+		artifact evaluateur : action.Matrice("a1")
+	}
+	
+	workspace region2 {
+		artifact evaluateur : action.Matrice("a2")
+	}
+	
+	workspace region3 {
+		artifact evaluateur : action.Matrice("a3")
+	}
+	
+	workspace region4 {
+		artifact evaluateur : action.Matrice("a4")
+	}
+	
+	workspace region5 {
+		artifact evaluateur : action.Matrice("a5")
 	}
     
 /* 

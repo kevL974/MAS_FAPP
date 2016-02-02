@@ -11,8 +11,11 @@ import cartago.*;
 
 
 public class Matrice extends Artifact {
+	private String name;
 	private HashMap<String,List<Integer>> knowledge = new HashMap<String,List<Integer>>();
-	void init() {
+	
+	void init(String name) {
+		this.name =  name; 
 	}
 	
 	@OPERATION
@@ -44,6 +47,7 @@ public class Matrice extends Artifact {
 
 	@OPERATION 
 	void afficherKnowledge(){
+		System.out.println("_________________" + name + "_________________");
 		for(String cle : knowledge.keySet()) {
 			List<Integer> domain = knowledge.get(cle);
 			System.out.print("[" + cle + "] => ");
