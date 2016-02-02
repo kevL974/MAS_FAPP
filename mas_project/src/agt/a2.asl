@@ -5,7 +5,7 @@ listSender([]).
 //id(X):-.my_name(X).
 
 //leaf :- not fils(Y).
-receivedAllDomains :- listSender(L) & fils(L).
+receivedAllDomains :- listSender(L1) & fils(L2) & L1 = L2.
 
 /* Initial goals */
 
@@ -16,35 +16,39 @@ receivedAllDomains :- listSender(L) & fils(L).
 
 /*getFrequence------------------------------------------*/
 +!getFrequence : 	true 
-					<- !utilPhase;
+					<- ?utilPhase;
 					!valuePhase.
 
-+!utilPhase : 	doUtilPhase & leaf & pere(Pere) & domain(L) & id(Id)
++?utilPhase : 	doUtilPhase & leaf & pere(Pere) & domain(L) & id(Id)
 				<- .print("reçu doUtilephase");
 				!initDomain;
 				.send(Pere, tell, domainFils(Id,L)).
 				
-+!utilPhase :   doUtilPhase & fils(X) 
++?utilPhase :   doUtilPhase & fils(X) 
 				<- !initDomain;
-				!sendDoUtilPhase(X);
-				!waitAllSonsDomains;
-				true.
-				
-+!utilPhase : true <- !utilPhase.
+				!sendDoUtilPhase(X);.print("entrer dans waitAllSons");
+				?waitAllSonsDomains;.print("sorti dans waitAllSons");
+				+doValuePhase.
+
+-?utilPhase : 	true <- .wait(10);
+				?utilPhase.				
 +!valuePhase : true.
 
 
 /*waitAllCostMatrix-------------------------------------*/
-+!waitAllSonsDomains : 	receivedAllDomains
-						<- afficherKnowledge; true.
-+!waitAllSonsDomains :	listSender(List) & domainFils(Id,Domain)
-						<- !addItemToList(Id,List, List1);
++?waitAllSonsDomains : 	receivedAllDomains
+						<- .print("receivedAllDomain");afficherKnowledge.
+						
++?waitAllSonsDomains :	listSender(List) & domainFils(Id,Domain) & fils(X)
+						<- !addItemToList(Id,List, List1);.print("listSender");
 						-listSender(List);
 						+listSender(List1);
 						!addAllDomain(Id,Domain);
-						-domainFils(Id,Domain);
-						!waitAllSonsDomains.
-+!waitAllSonsDomains : true <- !waitAllSonsDomains.
+						-domainFils(Id,Domain)[source(Id)];.print(List, List1, X);
+						?waitAllSonsDomains.
+						
+-?waitAllSonsDomains : 	true <- .print("-?waitAllSonsDomain");.wait(1000);
+						?waitAllSonsDomains.
 					
 /*sendDomain--------------------------------------------*/
 +!sendDomain(Id) : 	true
@@ -70,7 +74,7 @@ receivedAllDomains :- listSender(L) & fils(L).
 
 
 /*addItemToList----------------------------------------*/
-+!addItemToList(Item, List, List1) : true <- .print(List);List1 = [Item|List]; .print(List1).
++!addItemToList(Item, List, List1) : true <- List1 = [Item|List]; .print(List1).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
