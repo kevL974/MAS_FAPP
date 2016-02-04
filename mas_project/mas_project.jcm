@@ -11,19 +11,19 @@
 mas mas_project {
 	
 	agent a1 : a1.asl {
-		beliefs : id(a1)
+		beliefs : id("a1")
 		beliefs : racine
-		beliefs : fils([a2])
-		beliefs : pseudofils(a4)
+		beliefs : fils(["a2"])
+		beliefs : pseudofils("a4")
 		beliefs : domain([5,16, 20])
 		
 		focus : region1.evaluateur
 	}
 	
 	agent a2 : a2.asl {
-		beliefs : id(a2)
-		beliefs : pere(a1)
-		beliefs : fils([a3,a4,a5])
+		beliefs : id("a2")
+		beliefs : pere("a1")
+		beliefs : fils(["a3","a4","a5"])
 		beliefs : mat_cout([ [5,5,5,16,16,16,20,20,20], [5,16,20,5,16,20,5,16,20], [10,0,5,0,10,10,5,10,10]])
 		beliefs : domain([5,16, 20])
 		beliefs : domainPere([5,16, 20])
@@ -33,8 +33,8 @@ mas mas_project {
 	
 	agent a3 : a2.asl {
 		beliefs : leaf
-		beliefs : id(a3)
-		beliefs : pere(a2)
+		beliefs : id("a3")
+		beliefs : pere("a2")
 		beliefs : mat_cout([ [5,5,5,16,16,16,20,20,20], [5,16,20,5,16,20,5,16,20], [10,0,5,0,10,10,5,10,10]])
 		beliefs : domain([5,16, 20])
 		beliefs : domainPere([5,16, 20])
@@ -44,9 +44,9 @@ mas mas_project {
 	
 	agent a4 : a2.asl {
 		beliefs : leaf
-		beliefs : id(a4)
-		beliefs : pere(a2)
-		beliefs : pseudopere(a1)
+		beliefs : id("a4")
+		beliefs : pere("a2")
+		beliefs : pseudopere("a1")
 		beliefs : mat_cout([ [5,5,5,16,16,16,20,20,20], [5,16,20,5,16,20,5,16,20], [10,10,0,10,10,10,0,10,10] ])
 		beliefs : domain([5,16, 20])
 		beliefs : domainPere([5,16, 20])
@@ -56,9 +56,9 @@ mas mas_project {
 	
 	agent a5 : a2.asl {
 		beliefs : leaf
-		beliefs : id(a5)
-		beliefs : pere(a2)
-		beliefs : pseudopere(a1)
+		beliefs : id("a5")
+		beliefs : pere("a2")
+		beliefs : pseudopere("a1")
 		beliefs : mat_cout([ [5,5,5,16,16,16,20,20,20], [5,16,20,5,16,20,5,16,20], [10,0,5,0,10,10,5,10,10]])
 		beliefs : domain([5,16, 20])
 		beliefs : domainPere([5,16, 20])
