@@ -35,17 +35,10 @@ listSender([]).
 +!valuePhase : true.
 
 
-/*waitAllSonsDomains-------------------------------------*/
-+!waitAllSonsDomains : 	receivedAllDomains
-						<- .print("receivedAllDomain");afficherKnowledge.
+/*waitAllSonsDomains-------------------------------------*/					
 
-+!waitAllSonsDomains : 	true 
-						<- .print("?receivedDomain");
-						!addSonsDomain;
-						.print("merge").					
-
-+!addSonsDomain : 		receivedAllDomains <- true.
-+!addSonsDomain :		domainFils(Id,Domain) & listSender(Ls) & fils(Lf)
++!waitAllSonsDomains : 		receivedAllDomains <- true.
++!waitAllSonsDomains :		domainFils(Id,Domain) & listSender(Ls) & fils(Lf)
 						<- for ( .member(Freq,Domain) ) {
         					addDomain(Id, Freq);
      					};
@@ -59,11 +52,11 @@ listSender([]).
 						if(.empty(Lr)) {
 							.print("empty");
 							+receivedAllDomains;
-						};!addSonsDomain.
+						};!waitAllSonsDomains.
 						
 						
-+!addSonsDomain : 	true <- .print("toto");.wait(1000);
-					!addSonsDomain.
++!waitAllSonsDomains : 	true <- .print("toto");.wait(1000);
+					!waitAllSonsDomains.
 			
 /*+?waitAllSonsDomains :	listSender(List) & domainFils(Id,Domain) & fils(X)
 						<- !addItemToList(Id,List, List1);.print("listSender");
