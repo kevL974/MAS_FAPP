@@ -213,9 +213,9 @@ public class Agent {
 				for(iv = 0; iv < domVoisin.length; iv++) {
 					i = ia*domVoisin.length+iv;
 					matrice[0][i] = domAgent[ia];
-					matrice[0][i] = domVoisin[iv];
+					matrice[1][i] = domVoisin[iv];
 					
-					matrice[0][i] = calculCout(domAgent[ia], domVoisin[iv], cont);
+					matrice[2][i] = calculCout(domAgent[ia], domVoisin[iv], cont);
 				}
 			}
 			

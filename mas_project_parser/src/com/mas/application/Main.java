@@ -3,6 +3,7 @@ package com.mas.application;
 import java.util.List;
 
 import com.mas.entite.Agent;
+import com.mas.parser.Ecrivain;
 import com.mas.parser.Lecteur;
 import com.mas.tools.DfsTree;
 
@@ -15,9 +16,10 @@ public class Main {
 
 			Lecteur.lectureContaintes(antennes);
 			
-			new DfsTree(antennes);
+			//new DfsTree(antennes);
 			affichageListes(domaines,antennes);
 			
+			//Ecrivain.ecritureJACAMO(domaines, antennes);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,7 +50,7 @@ public class Main {
 
 		for (i = 0; i < taille; i++) {
 			tmpAnt = antennes.get(i);
-			System.out.println(tmpAnt.toStringArbre());
+			//System.out.println(tmpAnt.toStringArbre());
 			System.out.println("\t" + tmpAnt.toStringAvecContraintes());
 		}
 	}
