@@ -133,11 +133,112 @@ public class Ecrivain {
 	}
 	
 	private static String ficASL1(List<Integer[]> domaines, List<Agent> antennes) {
-		return "";
+		StringBuilder asl = new StringBuilder("//Agent a1 in project mas_project\n\n");
+		
+		/* Initial beliefs and rules */
+
+
+		/* Initial goals */
+		asl.append("!dpop.\n\n");
+		
+		/* Plans */
+		asl.append("+!dpop : fils([X|Q]) <- .send(X, tell, doUtilPhase).\n\n");
+
+		asl.append("{ include(\"$jacamoJar/templates/common-cartago.asl\") }\n");
+		asl.append("{ include(\"$jacamoJar/templates/common-moise.asl\") }\n");
+		
+		return asl.toString();
 	}
 	
 	private static String ficASL2(List<Integer[]> domaines, List<Agent> antennes) {
-		return "";
+		StringBuilder asl = new StringBuilder("//Agent a2 in project mas_project\n\n");
+		
+		/* Initial beliefs and rules */
+		asl.append("listSender([]).\n\n\n");
+		
+		/* Initial goals */
+		asl.append("!getFrequence.\n\n\n");
+		
+		/* Plans */
+		/*getFrequence------------------------------------------*/
+		asl.append("+!getFrequence : true\n");
+			asl.append("\t <- ?utilPhase;\n");
+			asl.append("\t !valuePhase.\n\n");
+
+		asl.append("+?utilPhase : 	doUtilPhase & leaf & pere(Pere) & domain(L) & id(Id)\n");
+			asl.append("\t <- .print(\"reçu doUtilephase\");\n");
+			asl.append("\t !initDomain;\n");
+			asl.append("\t .send(Pere, tell, domainFils(Id,L)).\n\n");
+				
+		asl.append("+?utilPhase :   doUtilPhase & fils(X)\n"); 
+			asl.append("\t<- !initDomain;\n");
+			asl.append("\t !sendDoUtilPhase(X);.print(\"entrer dans waitAllSons\");\n");
+			asl.append("\t !waitAllSonsDomains;.print(\"sorti dans waitAllSons\");\n");
+			asl.append("\t +doValuePhase.\n\n");
+
+		asl.append("-?utilPhase : 	true <- .wait(10);\n");
+			asl.append("\t ?utilPhase.\n\n");
+		
+		asl.append("+!valuePhase : true.\n\n");
+
+
+		/*waitAllSonsDomains-------------------------------------*/	
+		asl.append("+!waitAllSonsDomains : receivedAllDomains <- true.\n");
+		asl.append("+!waitAllSonsDomains :		domainFils(Id,Domain) & listSender(Ls) & fils(Lf)\n");
+			asl.append("\t <- for ( .member(Freq,Domain) ) {\n");
+				asl.append("\t\t addDomain(Id, Freq);\n");
+			asl.append("\t };\n");
+			asl.append("\t .concat(Ls, [Id], Lc);\n");
+			asl.append("\t .print(\"concatenation Ls et Id \", Ls, [Id], Lc);\n");
+			asl.append("\t .difference(Lf, Lc, Lr);\n");
+			asl.append("\t .print(\"difference entre Lf et Lc\", Lf, Lc, Lr);\n");
+			asl.append("\t .abolish(domainFils(Id,Domain));\n");
+			asl.append("\t .abolish(listSender(Ls));\n");
+			asl.append("\t +listSender(Lc);\n");
+			asl.append("\t if(.empty(Lr)) {\n");
+				asl.append("\t\t .print(\"empty\");\n");
+				asl.append("\t\t +receivedAllDomains;\n");
+			asl.append("\t };!waitAllSonsDomains.\n\n");
+						
+						
+		asl.append("+!waitAllSonsDomains : 	true <- .print(\"toto\");.wait(1000);\n");
+			asl.append("\t !waitAllSonsDomains.\n\n");
+					
+		/*sendDomain--------------------------------------------*/
+		asl.append("+!sendDomain(Id) : 	true\n");
+			asl.append("\t <-.send(Id, tell, domain(X)).\n\n");
+
+		/*sendDoUtilPhaseAll------------------------------------*/
+		asl.append("+!sendDoUtilPhaseAll : fils(L) <- !sendDoUtilPhase(L).\n");
+		asl.append("+!sendDoUtilPhase([T|Q]) : true <- .send(T,tell, doUtilPhase); !sendDoUtilPhase(Q).\n");
+		asl.append("+!sendDoUtilPhase([]) : true.\n\n");
+
+
+		/*initDomain-------------------------------------------*/
+		asl.append("+!initDomain : 	id(X) & domain(L1) & pere(Pere) & domainPere(L2)\n");
+			asl.append("\t <- !addAllDomain(X, L1);\n");
+		asl.append("!addAllDomain(Pere,L2);\n");
+			asl.append("\t afficherKnowledge.\n");
+
+		/*addDomainALL---------------------------------------- */
+		asl.append("+!addAllDomain(X, [T|Q]) :	true <- addDomain(X, T);\n");
+		asl.append("!addAllDomain(X, Q).\n\n");
+						
+		asl.append("+!addAllDomain(X, []) :	true.\n\n");
+
+
+		/*addItemToList----------------------------------------*/
+		asl.append("+!addItemToList(Item, List, List1) : true <- List1 = [Item|List]; .print(List1).\n\n");
+
+		/*isEqualsList------------------------------------------*/
+		asl.append("+!isEqualsList(L1, L2, L3) :	true <- .difference(L1, L2, L3);.print(\"HOOOOOOOOOOOOOO\");.print(\"je suis ici\",L1, L2, L3);\n");
+			asl.append("\t.empty(L3);\n");
+			asl.append("\t+receivedAllDomains.\n");
+							
+		asl.append("{ include(\"$jacamoJar/templates/common-cartago.asl\") }\n");
+		asl.append("{ include(\"$jacamoJar/templates/common-moise.asl\") }\n");
+		
+		return asl.toString();
 	}
 	
 	private static String listeAntenne(List<Integer> list) {

@@ -2,6 +2,10 @@ package com.mas.application;
 
 import java.util.List;
 
+import javax.swing.JFileChooser;
+
+import sun.awt.shell.ShellFolder;
+
 import com.mas.entite.Agent;
 import com.mas.parser.Ecrivain;
 import com.mas.parser.Lecteur;
@@ -11,14 +15,19 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			List<Integer[]> domaines = Lecteur.lectureDomaines();
-			List<Agent> antennes = Lecteur.lectureVariables();
+			//List<Integer[]> domaines = Lecteur.lectureDomaines();
+			//List<Agent> antennes = Lecteur.lectureVariables();
 
-			Lecteur.lectureContaintes(antennes);
+			//Lecteur.lectureContaintes(antennes);
 			
 			//new DfsTree(antennes);
-			affichageListes(domaines,antennes);
+			//affichageListes(domaines,antennes);
 			
+			System.out.println(System.getProperty("user.dir"));
+			System.out.println(System.getProperty("user.home"));
+			System.out.println(ShellFolder.get("fileChooserDefaultFolder").toString());
+			System.out.println(System.getProperty("eclipse.launcher"));
+			System.out.println(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
 			//Ecrivain.ecritureJACAMO(domaines, antennes);
 		} catch (Exception e) {
 			e.printStackTrace();
