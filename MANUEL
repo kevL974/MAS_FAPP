@@ -1,0 +1,11 @@
+1- Importez le parseur dans Eclipse.
+
+2- Créez un nouveau projet JACAMO appellé mas_project.
+
+3- Ajoutez à la racine du mas_project un repertoire "Ressources" où vous déposerez les fichiers VAR.txt, CTR.txt et DOM.txt.
+
+4- Modifiez la classe com.mas.tools.Constantes.java du parseur pour qu'il pointe sur le repertoire racine mas_project.
+
+5- Lancez le parser.
+
+6- Lancez l'application JACAMO
