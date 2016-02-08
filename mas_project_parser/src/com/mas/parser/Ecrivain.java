@@ -43,7 +43,7 @@ public class Ecrivain {
 		for(Agent a : antennes) {
 			pere = null;
 			
-			jcm.append("agent a");
+			jcm.append("\t agent a");
 			jcm.append(a.getId());
 			if(a.getParent() == -2) {
 				jcm.append(" : a1.asl {\n");
@@ -51,14 +51,14 @@ public class Ecrivain {
 				jcm.append(" : a2.asl {\n");
 			}
 
-			jcm.append("beliefs : id(\"a");
+			jcm.append("\t \t beliefs : id(\"a");
 			jcm.append(a.getId());
 			jcm.append("\")\n");
 
 			if(a.getParent() == -2) {
-				jcm.append("beliefs : racine\n");
+				jcm.append("\t \t beliefs : racine\n");
 			} else {
-				jcm.append("beliefs : pere(\"a");
+				jcm.append("\t \t beliefs : pere(\"a");
 				jcm.append(a.getParent());
 				jcm.append("\")\n");
 				pere = antennes.get(a.getParent()-1);
@@ -67,27 +67,28 @@ public class Ecrivain {
 			list = a.getFils();
 			t = list.size()-1;
 			if(t >= 0) {
-				jcm.append("beliefs : fils(");
+				jcm.append("\t \t beliefs : fils(");
 				jcm.append(listeAntenne(list));
 				jcm.append(")\n");
 			} else {
-				jcm.append("beliefs : leaf\n");
-				if(pere != null) {
-					mat = a.matriceCout(pere, domaines);
-					jcm.append("beliefs : mat_cout([");
-					jcm.append(tableau(mat[0]));
-					jcm.append(", ");
-					jcm.append(tableau(mat[1]));
-					jcm.append(", ");
-					jcm.append(tableau(mat[2]));
-					jcm.append("])\n");
-				}
+				jcm.append("\t \t beliefs : leaf\n");
+			}
+			
+			if(pere != null) {
+				mat = a.matriceCout(pere, domaines);
+				jcm.append("\t \t beliefs : mat_cout([");
+				jcm.append(tableau(mat[0]));
+				jcm.append(", ");
+				jcm.append(tableau(mat[1]));
+				jcm.append(", ");
+				jcm.append(tableau(mat[2]));
+				jcm.append("])\n");
 			}
 			
 			list = a.getPseudoFils();
 			t = list.size()-1;
 			if(t >= 0) {
-				jcm.append("beliefs : pseudoFils(");
+				jcm.append("\t \t beliefs : pseudoFils(");
 				jcm.append(listeAntenne(list));
 				jcm.append(")\n");
 			}
@@ -95,39 +96,42 @@ public class Ecrivain {
 			list = a.getPseudoParents();
 			t = list.size()-1;
 			if(t >= 0) {
-				jcm.append("beliefs : pseudoPere(");
+				jcm.append("\t \t beliefs : pseudoPere(");
 				jcm.append(listeAntenne(list));
 				jcm.append(")\n");
 			} 
 			
-			jcm.append("beliefs : domain(");
+			jcm.append("\t \t beliefs : domain(");
 			jcm.append(tableau(domaines.get(a.getIdDom())));
 			jcm.append(")\n");
 			
 			if(pere != null) {
-				jcm.append("beliefs : domainPere(");
+				jcm.append("\t \t beliefs : domainPere(");
 				jcm.append(tableau(domaines.get(pere.getIdDom())));
 				jcm.append(")\n");
 			}
 			
-			jcm.append("focus : region");
+			jcm.append("\t \t focus : region");
 			jcm.append(a.getId());
 			jcm.append(".evaluateur\n");
 			
-			jcm.append("}\n");
+			jcm.append("\t }\n\n");
 		}
 		
 		for(Agent a : antennes) {
-			jcm.append("workspace region");
+			jcm.append("\t workspace region");
 			jcm.append(a.getId());
 			jcm.append("{\n");
-			jcm.append("artifact evaluateur : action.Matrice(\"a");
+			jcm.append("\t \t artifact evaluateur : action.Matrice(\"a");
 			jcm.append(a.getId());
 			jcm.append("\")\n");
-			jcm.append("}\n");
+			jcm.append("\t }\n\n");
 		}
 		
-		jcm.append("}\n");
+		jcm.append("\t asl-path: src/agt\n");
+		jcm.append("\t \t src/agt/inc);\n");
+		
+		jcm.append("}\n\n");
 		
 		return jcm.toString();
 	}
