@@ -6,6 +6,9 @@ import java.util.Set;
 
 import com.mas.entite.Agent;
 
+/**
+ * Classe permettant la construction d'un DFSTree depuis une liste d'Agent.
+ */
 public class DfsTree {
 	List<Agent> antennes;
 	List<Integer> visites;

@@ -10,6 +10,9 @@ import com.mas.entite.Agent;
 import com.mas.entite.Contrainte;
 import com.mas.tools.Constantes;
 
+/**
+ * Classe de parsage des données.
+ */
 public class Lecteur {
 	public static List<Integer[]> lectureDomaines() throws Exception {
 		List<Integer[]> domaines;

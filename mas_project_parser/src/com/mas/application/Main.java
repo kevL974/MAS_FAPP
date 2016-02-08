@@ -2,15 +2,14 @@ package com.mas.application;
 
 import java.util.List;
 
-import javax.swing.JFileChooser;
-
-import sun.awt.shell.ShellFolder;
-
 import com.mas.entite.Agent;
 import com.mas.parser.Ecrivain;
 import com.mas.parser.Lecteur;
 import com.mas.tools.DfsTree;
 
+/**
+ * Classe principale de l'application lançant les traitements.
+ */
 public class Main {
 
 	public static void main(String[] args) {
@@ -54,7 +53,7 @@ public class Main {
 
 		for (i = 0; i < taille; i++) {
 			tmpAnt = antennes.get(i);
-			//System.out.println(tmpAnt.toStringArbre());
+			System.out.println(tmpAnt.toStringArbre());
 			System.out.println("\t" + tmpAnt.toStringAvecContraintes());
 		}
 	}

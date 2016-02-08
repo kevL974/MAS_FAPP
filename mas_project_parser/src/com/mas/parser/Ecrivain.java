@@ -8,6 +8,10 @@ import java.util.List;
 import com.mas.entite.Agent;
 import com.mas.tools.Constantes;
 
+
+/**
+ * Classe permettant l'écriture des fichiers JACAMO
+ */
 public class Ecrivain {
 	public static void ecritureJACAMO(List<Integer[]> domaines, List<Agent> antennes) {
 		try {

@@ -7,6 +7,10 @@ import java.util.Map;
 
 import com.mas.tools.Constantes;
 
+
+/**
+ * Classe contenant les informations d'une antenne
+ */
 public class Agent {
 	private int id;
 	private int idDom;
